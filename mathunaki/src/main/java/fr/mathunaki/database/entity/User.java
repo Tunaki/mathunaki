@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
-import fr.mathunaki.database.service.State;
+import fr.mathunaki.database.service.Status;
 import fr.mathunaki.database.validation.PhoneNumber;
 
 @Entity
@@ -60,9 +60,9 @@ public final class User implements EntityInterface {
 	private String information;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "alive", nullable = false)
+	@Column(nullable = false)
 	@NotNull
-	private State state;
+	private Status status;
 
 	@Column(nullable = false, precision = 4, scale = 2)
 	@NotNull
@@ -138,12 +138,12 @@ public final class User implements EntityInterface {
 		this.information = information;
 	}
 
-	public State getState() {
-		return state;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStatus(Status state) {
+		status = state;
 	}
 
 	public double getPrice() {

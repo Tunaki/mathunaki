@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 
-public enum State {
+public enum Status {
 
 	DISABLED,
 

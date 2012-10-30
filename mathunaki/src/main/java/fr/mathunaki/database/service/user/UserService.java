@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.mathunaki.database.dao.UserDAO;
 import fr.mathunaki.database.entity.User;
 import fr.mathunaki.database.exception.DeleteEntityException;
-import fr.mathunaki.database.service.State;
+import fr.mathunaki.database.service.Status;
 
 @Service("userService")
 @Transactional
@@ -104,7 +104,7 @@ public class UserService {
 	 */
 	public User newUser() {
 		User user = new User();
-		user.setState(State.ENABLED);
+		user.setStatus(Status.ENABLED);
 		return user;
 	}
 

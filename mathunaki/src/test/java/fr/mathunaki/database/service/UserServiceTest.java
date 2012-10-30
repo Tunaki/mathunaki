@@ -23,24 +23,24 @@ public class UserServiceTest extends AbstractServiceTest {
 		return new Object[][] {
 		{ 1L, "Bernard", "Laporte", "22 Avenue du Colysée 59130 Lambersart",
 			"trigalliere@gmail.com", "0681134594", null, "0320939873",
-			"Cours de Maple. Passe par le CNED.", State.ENABLED, 25.00 },
+			"Cours de Maple. Passe par le CNED.", Status.ENABLED, 25.00 },
 		{ 2L, "Alexia", "Potdevin", "145 rue Gambetta, 3e étage, Appartement du fond",
 			"alexia18@numericable.fr", "0607651918", "0672461872", "0320470578",
 			"Cours Automatique. École d'ingénieur Polytech'Lille, département Génie Biologique Agroalimentaire.",
-			State.ENABLED, 20.00 },
+			Status.ENABLED, 20.00 },
 		{ 3L, "Thomas", "Nicolazic Zimmermann", "15 rue du Boulevard 59170 Croix",
 			"nicolazic.jeannoel@wanadoo.fr", null, null, "0687584968",
-			"Bon niveau.", State.ENABLED, 25.00 },
+			"Bon niveau.", Status.ENABLED, 25.00 },
 		{ 4L, "Valérie", "Alvares", "5 rue de la Grande Brasserie, Résidence Jardin des Sciences, Appartement 204",
 			"vf.alva@orange.fr", "0683764126", "0688901753", "0466509839",
-			"Prépa intégrée à l'ENSCL. Cours de physique.", State.ENABLED, 25.00 } };
+			"Prépa intégrée à l'ENSCL. Cours de physique.", Status.ENABLED, 25.00 } };
 		// @formatter:on
 	}
 
 	@Test(dataProvider = "userList", groups = "get")
 	public void testGetUser(Long id, String firstName, String lastName, String address,
 			String email, String phoneNumber, String phoneNumberParent, String phoneNumber2,
-			String information, State state, double price) {
+			String information, Status status, double price) {
 		User user = userService.getUser(id);
 		assertEquals(user.getFirstName(), firstName);
 		assertEquals(user.getLastName(), lastName);
@@ -50,7 +50,7 @@ public class UserServiceTest extends AbstractServiceTest {
 		assertEqualsOrBothNull(user.getPhoneNumber2(), phoneNumber2);
 		assertEqualsOrBothNull(user.getPhoneNumberParent(), phoneNumberParent);
 		assertEqualsOrBothNull(user.getInformation(), information);
-		assertEquals(user.getState(), state);
+		assertEquals(user.getStatus(), status);
 		assertEquals(user.getPrice(), price);
 	}
 
@@ -64,7 +64,7 @@ public class UserServiceTest extends AbstractServiceTest {
 	public void testNewUser() {
 		User user = userService.newUser();
 		assertNull(user.getId());
-		assertEquals(user.getState(), State.ENABLED);
+		assertEquals(user.getStatus(), Status.ENABLED);
 	}
 
 	@Test(groups = "create", dependsOnGroups = "get")
@@ -81,7 +81,7 @@ public class UserServiceTest extends AbstractServiceTest {
 		assertEquals(user.getLastName(), "Boué");
 		assertEquals(user.getAddress(), "15 rue Eugène-Ténot 33800 Bordeaux");
 		assertEquals(user.getPrice(), 20.00);
-		assertEquals(user.getState(), State.ENABLED);
+		assertEquals(user.getStatus(), Status.ENABLED);
 	}
 
 	@Test(groups = "update", dependsOnGroups = "create")
