@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+  
+  <bean id="dataSource"
+        class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close"
+        p:driverClassName="com.mysql.jdbc.Driver"
+        p:url="jdbc:mysql://localhost:3306/mathunaki"
+        p:username="root"
+        p:password="yomgui33" />
+<!-- 
+  <jdbc:initialize-database data-source="dataSource">
+    <jdbc:script location="classpath:sql/drop-create-tables.sql"/>
+    <jdbc:script location="classpath:sql/load-data.sql"/>
+  </jdbc:initialize-database> -->
+
+  <bean id="dataSourceInitializer" class="org.springframework.jdbc.datasource.init.DataSourceInitializer">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="databasePopulator">
+      <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+        <property name="sqlScriptEncoding" value="UTF-8"/>
+        <property name="scripts">
+          <list>
+            <value>classpath:sql/drop-create-tables.sql</value>
+            <value>classpath:sql/load-data.sql</value>
+          </list>
+        </property>
+      </bean>
+    </property>
+  </bean>
+
+</beans>

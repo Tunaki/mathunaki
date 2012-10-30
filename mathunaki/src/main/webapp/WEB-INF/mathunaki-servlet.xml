@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+  <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+        p:order="1" />
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:prefix="/WEB-INF/jsp/"
+        p:suffix=".jsp"
+        p:viewClass="org.springframework.web.servlet.view.JstlView"
+        p:order="2" />
+  <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource"
+        p:basename="messages" />
+  <bean id="localeChangeInterceptor"
+        class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+        p:paramName="lang" />
+  <bean id="localeResolver"
+        class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+        p:defaultLocale="fr" />
+  <bean id="handlerMapping"
+        class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    <property name="interceptors">
+      <ref bean="localeChangeInterceptor" />
+    </property>
+  </bean>
+  <bean id="validator"
+        class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+  <bean id="multipartResolver"
+        class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+  </bean>
+
+  <context:component-scan base-package="fr.mathunaki.webapp.controller" />
+  <mvc:annotation-driven />
+  <mvc:resources mapping="/resources/**" location="/resources/"/>
+  <mvc:default-servlet-handler />
+
+</beans>

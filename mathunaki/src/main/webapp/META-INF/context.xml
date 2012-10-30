@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/mathunaki" docBase="mathunaki" reloadable="true" debug="1">
+  <Resource name="jdbc/mathunaki"
+            username="root"
+            password="yomgui33"
+            auth="Container"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/mathunaki"
+            type="javax.sql.DataSource"
+            initialSize="5"
+            maxActive="120"
+            maxIdle="5"
+            maxWait="5000"
+            poolPreparedStatements="true"
+            validationQuery="select 1" />
+</Context>
