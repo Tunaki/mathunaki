@@ -7,7 +7,7 @@
   <sf:form method="POST"
            action="${pageContext.request.contextPath}/user/${user.id}/update"
            modelAttribute="user">
-    <tu:userForm bean="${user}" mode="UPDATE" />
+    <tu:userForm mode="UPDATE" />
     <div>
       <button name="cancel" type="submit" class="btn">
         <s:message code="button.cancel" />
