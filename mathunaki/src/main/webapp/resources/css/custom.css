@@ -19,3 +19,20 @@ input[type="color"],
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;*/
 }
+
+.clickable-table {
+	border-collapse: collapse;
+}
+.clickable-table-row {
+	background-color: #eee;
+    border-top: 1px solid #fff;
+}
+.clickable-table-row:hover {
+	background-color: #ccc !important;
+}
+.clickable-table-row td {
+	padding: 3px 5px;
+}
+.clickable-table-row td:hover {
+	cursor: pointer;
+}

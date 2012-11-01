@@ -16,7 +16,7 @@
     <tc:text property="phoneNumberParent" readOnly="${mode eq 'READ'}" name="user" />
     <tc:text property="phoneNumber2" readOnly="${mode eq 'READ'}" name="user" />
     <tc:textArea property="information" readOnly="${mode eq 'READ'}" name="user" />
-    <tc:checkbox property="status" readOnly="${mode eq 'READ'}" required="required" name="user" />
+    <tc:radio property="status" readOnly="${mode eq 'READ'}" required="required" name="user" />
     <tc:text property="price" readOnly="${mode eq 'READ'}" required="required" name="user" />
   </table>
 </fieldset>

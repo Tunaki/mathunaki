@@ -1,6 +1,7 @@
 package fr.mathunaki.webapp.controller.tuition;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.mathunaki.database.entity.Tuition;
+import fr.mathunaki.database.entity.User;
+import fr.mathunaki.database.exception.EntityNotFoundException;
 import fr.mathunaki.database.service.tuition.TuitionService;
 import fr.mathunaki.database.service.user.UserService;
 
@@ -38,22 +41,34 @@ public class TuitionCreateController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
 	public String create(@ModelAttribute("tuition") @Valid Tuition tuition, BindingResult result,
-			RedirectAttributes redirectAttrs, @RequestParam("file") MultipartFile file) {
+			RedirectAttributes redirectAttrs, @RequestParam("file") MultipartFile file,
+			@RequestParam("userId") String userIdStr) {
+		Long userId = null;
+		byte[] bytes = null;
+		try {
+			userId = Long.parseLong(userIdStr);
+		} catch (NumberFormatException e) {
+			result.rejectValue("user", "fr.mathunaki.validation.user.mandatory");
+		}
+		if (!file.isEmpty()) {
+			try {
+				bytes = file.getBytes();
+			} catch (IOException e) {
+				result.rejectValue("resource", "fr.mathunaki.validation.file.invalid");
+			}
+		}
 		if (result.hasErrors()) {
-			addFileErrorOrReturnBytes(file, result);
 			return "tuition/tuitionCreate";
 		} else {
-			if (!file.isEmpty()) {
-				byte[] bytes = addFileErrorOrReturnBytes(file, result);
-				if (bytes == null) {
-					return "tuition/tuitionCreate";
-				}
-				tuition.setResource(bytes);
+			tuition.setResource(bytes);
+			try {
+				tuitionService.saveTuition(tuition, userId);
+			} catch (EntityNotFoundException e) {
+				result.rejectValue("user", e.getMessage());
+				return "tuition/tuitionCreate";
 			}
-			// tuitionService.saveTuition(tuition);
 			redirectAttrs.addAttribute("tuitionId", tuition.getId());
-			// return "redirect:/tuition/{tuitionId}";
-			return "tuition/tuitionCreate";
+			return "redirect:/tuition/{tuitionId}";
 		}
 	}
 
@@ -64,20 +79,8 @@ public class TuitionCreateController {
 
 	@RequestMapping(value = "/userSearchDialog", method = RequestMethod.GET)
 	@ResponseBody
-	public void getMatchingUsers(@RequestParam String name, Model model) {
-		model.addAttribute("userSearchList", userService.getUserListWithName(name));
-	}
-
-	private byte[] addFileErrorOrReturnBytes(MultipartFile file, BindingResult result) {
-		byte[] bytes = null;
-		if (!file.isEmpty()) {
-			try {
-				bytes = file.getBytes();
-			} catch (IOException e) {
-				result.rejectValue("resource", "fr.mathunaki.validation.file.invalid");
-			}
-		}
-		return bytes;
+	public List<User> getMatchingUsers(@RequestParam String name) {
+		return userService.getUserListWithName(name);
 	}
 
 }

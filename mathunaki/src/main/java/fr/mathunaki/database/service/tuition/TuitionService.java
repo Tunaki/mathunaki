@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.mathunaki.database.dao.TuitionDAO;
 import fr.mathunaki.database.dao.UserDAO;
 import fr.mathunaki.database.entity.Tuition;
+import fr.mathunaki.database.entity.User;
 import fr.mathunaki.database.exception.DeleteEntityException;
+import fr.mathunaki.database.exception.EntityNotFoundException;
 
 @Service("tuitionService")
 @Transactional
@@ -42,12 +44,31 @@ public class TuitionService {
 	}
 
 	/**
-	 * Save the given tuition in database.
+	 * Save the given tuition in database linked with the given user. This
+	 * method is to be used when the user does not exist in database.
 	 * 
 	 * @param tuition Tuition to create.
+	 * @param user User linked to this tuition.
 	 */
-	public void saveTuition(Tuition tuition) {
-		userDAO.save(tuition.getUser());
+	public void saveTuition(Tuition tuition, User user) {
+		userDAO.save(user);
+		tuition.setUser(user);
+		tuitionDAO.save(tuition);
+	}
+
+	/**
+	 * Save the given tuition in database linked with the given user id. This
+	 * method is to be used when the user already exist in database.
+	 * 
+	 * @param tuition Tuition to create.
+	 * @param userId Id of user to link to the tuition to save.
+	 */
+	public void saveTuition(Tuition tuition, Long userId) {
+		User user = userDAO.get(userId);
+		if (user == null) {
+			throw new EntityNotFoundException("fr.mathunaki.validation.user.invalid");
+		}
+		tuition.setUser(user);
 		tuitionDAO.save(tuition);
 	}
 

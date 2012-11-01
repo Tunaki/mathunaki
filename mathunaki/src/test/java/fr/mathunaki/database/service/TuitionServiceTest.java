@@ -64,10 +64,9 @@ public class TuitionServiceTest extends AbstractServiceTest {
 	@Test(groups = "save", dependsOnGroups = "get")
 	public void testSaveTuitionWithExistingUser() {
 		Tuition tuition = tuitionService.newTuition();
-		tuition.setUser(userService.getUser(USER_ID));
 		tuition.setUserLevel(UserLevel.PREMIERE_ES);
 		tuition.setDescription("C'était un bon élève...");
-		tuitionService.saveTuition(tuition);
+		tuitionService.saveTuition(tuition, USER_ID);
 		tuitionId = tuition.getId();
 		tuition = tuitionService.getTuition(tuitionId);
 		assertEquals(tuition.getUser().getId(), USER_ID);
@@ -83,10 +82,9 @@ public class TuitionServiceTest extends AbstractServiceTest {
 		user.setLastName("Tuition test");
 		user.setAddress("Là");
 		user.setPrice(1.00);
-		tuition.setUser(user);
 		tuition.setUserLevel(UserLevel.PCSI);
 		tuition.setDescription("C'était un bon élève...");
-		tuitionService.saveTuition(tuition);
+		tuitionService.saveTuition(tuition, user);
 		tuitionIdWithUser = tuition.getId();
 		newUserId = tuition.getUser().getId();
 		tuition = tuitionService.getTuition(tuitionIdWithUser);

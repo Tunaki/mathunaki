@@ -1,23 +1,19 @@
 package fr.mathunaki.database.service;
 
-import java.util.ResourceBundle;
-
-import org.springframework.context.i18n.LocaleContextHolder;
-
-public enum Status {
+public enum Status implements LocalizedEnum {
 
 	DISABLED,
 
 	ENABLED;
 
-	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("messages",
-			LocaleContextHolder.getLocale());
-
-	/**
-	 * @return Localized label of this enum value.
-	 */
-	public String getLabel() {
+	@Override
+	public String toString() {
 		return BUNDLE.getString(name());
+	}
+
+	@Override
+	public String getLabel() {
+		return toString();
 	}
 
 }

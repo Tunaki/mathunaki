@@ -1,10 +1,8 @@
 package fr.mathunaki.database.service.user;
 
-import java.util.ResourceBundle;
+import fr.mathunaki.database.service.LocalizedEnum;
 
-import org.springframework.context.i18n.LocaleContextHolder;
-
-public enum UserLevel {
+public enum UserLevel implements LocalizedEnum {
 
 	ECOLE_INGENIEUR,
 
@@ -16,14 +14,14 @@ public enum UserLevel {
 
 	SECONDE, TROISIEME, QUATRIEME, CINQUIEME, SIXIEME;
 
-	private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("messages",
-			LocaleContextHolder.getLocale());
-
-	/**
-	 * @return Localized label of this enum value.
-	 */
-	public String getLabel() {
+	@Override
+	public String toString() {
 		return BUNDLE.getString(name());
+	}
+
+	@Override
+	public String getLabel() {
+		return toString();
 	}
 
 }

@@ -3,11 +3,7 @@ package fr.mathunaki.webapp.controller;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.servlet.ModelAndView;
-
-import fr.mathunaki.database.exception.EntityNotFoundException;
 
 /**
  * ControllerSetup allows the definition of methods global to every controller
@@ -28,17 +24,18 @@ public class ControllerSetup {
 		// CustomBooleanEditor(true));
 	}
 
-	/**
-	 * Handle exception of type {@link EntityNotFoundException}
-	 * 
-	 * @param e EntityNotFoundException.
-	 * @return Model and view object.
-	 */
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ModelAndView handleEntityNotFoundException(EntityNotFoundException e) {
-		ModelAndView mav = new ModelAndView("exception/entityNotFound");
-		mav.addObject("exception", e);
-		return mav;
-	}
+	// /**
+	// * Handle exception of type {@link EntityNotFoundException}
+	// *
+	// * @param e EntityNotFoundException.
+	// * @return Model and view object.
+	// */
+	// @ExceptionHandler(EntityNotFoundException.class)
+	// public ModelAndView handleEntityNotFoundException(EntityNotFoundException
+	// e) {
+	// ModelAndView mav = new ModelAndView("exception/entityNotFound");
+	// mav.addObject("exception", e);
+	// return mav;
+	// }
 
 }

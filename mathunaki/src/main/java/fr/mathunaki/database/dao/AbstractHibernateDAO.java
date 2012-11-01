@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.mathunaki.database.entity.EntityInterface;
-import fr.mathunaki.database.exception.EntityNotFoundException;
 
 @Transactional(propagation = Propagation.MANDATORY)
 public abstract class AbstractHibernateDAO<T extends EntityInterface> {
@@ -38,11 +37,7 @@ public abstract class AbstractHibernateDAO<T extends EntityInterface> {
 	@SuppressWarnings("unchecked")
 	public T get(Long id) {
 		checkNotNull(id);
-		T entity = (T) getCurrentSession().get(clazz, id);
-		if (entity == null) {
-			throw new EntityNotFoundException("exception.entity.notFound", id);
-		}
-		return entity;
+		return (T) getCurrentSession().get(clazz, id);
 	}
 
 	/**

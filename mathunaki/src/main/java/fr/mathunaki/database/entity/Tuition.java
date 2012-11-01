@@ -29,7 +29,6 @@ public final class Tuition implements EntityInterface {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
-	@NotNull
 	private User user;
 
 	@Enumerated(EnumType.STRING)

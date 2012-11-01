@@ -44,7 +44,7 @@ public class TuitionUpdateController {
 		if (result.hasErrors()) {
 			return "tuition/tuitionUpdate";
 		} else {
-			tuitionService.saveTuition(tuition);
+			tuitionService.updateTuition(tuition);
 			redirectAttrs.addAttribute("tuitionId", tuition.getId());
 			status.setComplete();
 			return "redirect:/tuition/{tuitionId}";
