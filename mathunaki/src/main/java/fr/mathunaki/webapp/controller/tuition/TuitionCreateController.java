@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import fr.mathunaki.database.entity.Tuition;
 import fr.mathunaki.database.entity.User;
 import fr.mathunaki.database.exception.EntityNotFoundException;
+import fr.mathunaki.database.exception.FileTooLargeException;
 import fr.mathunaki.database.service.tuition.TuitionService;
 import fr.mathunaki.database.service.user.UserService;
 
@@ -65,6 +66,9 @@ public class TuitionCreateController {
 				tuitionService.saveTuition(tuition, userId);
 			} catch (EntityNotFoundException e) {
 				result.rejectValue("user", e.getMessage());
+				return "tuition/tuitionCreate";
+			} catch (FileTooLargeException e) {
+				result.rejectValue("resource", e.getMessage());
 				return "tuition/tuitionCreate";
 			}
 			redirectAttrs.addAttribute("tuitionId", tuition.getId());

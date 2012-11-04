@@ -41,6 +41,7 @@ public final class Tuition implements EntityInterface {
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
+	@Column
 	private byte[] resource;
 
 	@Override

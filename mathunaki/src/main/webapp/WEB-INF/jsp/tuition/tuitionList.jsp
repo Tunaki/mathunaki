@@ -23,7 +23,7 @@
         </td>
         <td><s:message code="${tuition.userLevel}" /></td>
         <td><c:out value="${tuition.description}" /></td>
-        <td><c:out value="${tuition.resource}" /></td>
+        <td><c:out value="Link to resource" /></td>
       </tr>
     </c:forEach>
   </tbody>

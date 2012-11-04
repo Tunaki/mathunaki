@@ -13,6 +13,7 @@ import fr.mathunaki.database.entity.Tuition;
 import fr.mathunaki.database.entity.User;
 import fr.mathunaki.database.exception.DeleteEntityException;
 import fr.mathunaki.database.exception.EntityNotFoundException;
+import fr.mathunaki.database.exception.FileTooLargeException;
 
 @Service("tuitionService")
 @Transactional
@@ -67,6 +68,11 @@ public class TuitionService {
 		User user = userDAO.get(userId);
 		if (user == null) {
 			throw new EntityNotFoundException("fr.mathunaki.validation.user.invalid");
+		}
+		byte[] resource = tuition.getResource();
+		if (resource != null && resource.length > 16 * Math.pow(2, 20)) {
+			// file size is over 16*2^20 = 16 Mbit.
+			throw new FileTooLargeException("exception.file.toolarge");
 		}
 		tuition.setUser(user);
 		tuitionDAO.save(tuition);

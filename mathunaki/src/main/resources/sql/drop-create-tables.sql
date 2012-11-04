@@ -15,7 +15,7 @@ CREATE TABLE Tuition (
     user_id BIGINT NOT NULL,
     user_level VARCHAR(20) NOT NULL,
     description VARCHAR(255),
-    resource BLOB
+    resource LONGBLOB
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE MathunakiUser (

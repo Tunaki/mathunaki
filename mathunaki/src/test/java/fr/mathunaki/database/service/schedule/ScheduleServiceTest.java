@@ -1,4 +1,4 @@
-package fr.mathunaki.database.service;
+package fr.mathunaki.database.service.schedule;
 
 import java.util.Date;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import fr.mathunaki.database.entity.Schedule;
+import fr.mathunaki.database.service.AbstractServiceTest;
 import fr.mathunaki.database.service.schedule.ScheduleService;
 import fr.mathunaki.database.service.tuition.TuitionService;
 

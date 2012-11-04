@@ -11,9 +11,18 @@
     <tr>
       <td><sf:label path="user"><s:message code="tuition.user" /></sf:label></td>
       <td>
-        <input type="hidden" id="userId" name="userId" />
-        <span id="userName"></span>
-        <button id="searchUser" type="button"><s:message code="button.search" /></button>
+        <c:choose>
+          <c:when test="${mode eq 'READ'}">
+            <c:out value="${tuition.user.firstName} ${tuition.user.lastName}" />
+          </c:when>
+          <c:otherwise>
+            <input type="hidden" id="userId" name="userId" />
+            <span id="userName"></span>
+            <button id="searchUser" type="button">
+              <s:message code="button.search" />
+            </button>
+          </c:otherwise>
+        </c:choose>
       </td>
       <td>
         <s:bind path="user">
@@ -25,6 +34,6 @@
     </tr>
     <tc:list property="userLevel" readOnly="${mode eq 'READ'}" required="required" name="tuition" items="${userLevelList}" itemLabel="label" />
     <tc:textArea property="description" readOnly="${mode eq 'READ'}" name="tuition" />
-    <tc:file property="resource" readOnly="${mode eq 'READ'}" name="tuition" />
+    
   </table>
 </fieldset>

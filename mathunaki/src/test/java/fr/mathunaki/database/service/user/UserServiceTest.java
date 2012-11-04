@@ -1,4 +1,4 @@
-package fr.mathunaki.database.service;
+package fr.mathunaki.database.service.user;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 
 import fr.mathunaki.database.entity.User;
 import fr.mathunaki.database.exception.DeleteEntityException;
+import fr.mathunaki.database.service.AbstractServiceTest;
+import fr.mathunaki.database.service.Status;
 import fr.mathunaki.database.service.user.UserService;
 
 public class UserServiceTest extends AbstractServiceTest {

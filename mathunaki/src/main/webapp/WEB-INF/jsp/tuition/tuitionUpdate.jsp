@@ -13,7 +13,7 @@
         <s:message code="button.cancel" />
       </button>
       <button name="update" type="submit" class="btn">
-        <s:message code="button.update" />
+        <s:message code="button.validate" />
       </button>
     </div>
   </sf:form>

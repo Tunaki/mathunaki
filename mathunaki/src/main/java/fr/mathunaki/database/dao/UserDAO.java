@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import fr.mathunaki.database.entity.User;
+import fr.mathunaki.database.service.Status;
 
 @Repository("userDAO")
 public class UserDAO extends AbstractHibernateDAO<User> {
 
 	private static final String DELETE_USER = "DELETE FROM User WHERE user_id = :user_id";
-	private static final String UPDATE_ALIVE = "UPDATE User SET alive = :alive WHERE user_id = :user_id";
+	private static final String UPDATE_ALIVE = "UPDATE User SET status = :status WHERE user_id = :user_id";
 	private static final String GET_USER_NAME = "SELECT user FROM User AS user WHERE user.firstName LIKE '%' || :name || '%' OR user.lastName LIKE '%' || :name || '%'";
 
 	/**
@@ -27,7 +28,7 @@ public class UserDAO extends AbstractHibernateDAO<User> {
 	 * @param userId Id of the user to disable.
 	 */
 	public void disable(Long userId) {
-		updateAlive(userId, false);
+		updateStatus(userId, Status.DISABLED);
 	}
 
 	/**
@@ -37,7 +38,7 @@ public class UserDAO extends AbstractHibernateDAO<User> {
 	 * @param userId Id of the user to enable.
 	 */
 	public void enable(Long userId) {
-		updateAlive(userId, true);
+		updateStatus(userId, Status.ENABLED);
 	}
 
 	/**
@@ -62,8 +63,8 @@ public class UserDAO extends AbstractHibernateDAO<User> {
 		return getCurrentSession().createQuery(GET_USER_NAME).setParameter("name", name).list();
 	}
 
-	private void updateAlive(Long userId, boolean alive) {
-		getCurrentSession().createQuery(UPDATE_ALIVE).setParameter("alive", alive)
+	private void updateStatus(Long userId, Status status) {
+		getCurrentSession().createQuery(UPDATE_ALIVE).setParameter("status", status)
 				.setParameter("user_id", userId).executeUpdate();
 	}
 

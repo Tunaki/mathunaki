@@ -1,4 +1,4 @@
-package fr.mathunaki.database.service;
+package fr.mathunaki.database.service.tuition;
 
 import java.io.File;
 import java.util.List;
@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import fr.mathunaki.database.entity.Tuition;
 import fr.mathunaki.database.entity.User;
 import fr.mathunaki.database.exception.DeleteEntityException;
+import fr.mathunaki.database.service.AbstractServiceTest;
 import fr.mathunaki.database.service.tuition.TuitionService;
 import fr.mathunaki.database.service.user.UserLevel;
 import fr.mathunaki.database.service.user.UserService;

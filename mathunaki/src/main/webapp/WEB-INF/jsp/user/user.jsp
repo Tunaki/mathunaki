@@ -22,7 +22,7 @@
       <s:message code="button.delete" />
     </button>
     <c:choose>
-      <c:when test="${user.alive}">
+      <c:when test="${user.status eq 'ENABLED'}">
         <button name="disable" type="submit">
           <s:message code="button.disable" />
         </button>
